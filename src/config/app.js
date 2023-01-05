@@ -38,16 +38,8 @@ const configApp = {
             redirectUri: process.env.GOOGLE_API_REDIRECT_URI || null
         },
     },
-    "midtrans": {
-        "merchantId": process.env.MIDTRANS_MERCHANT_ID || null,
-        "clientKey": process.env.MIDTRANS_CLIENT_KEY || null,
-        "serverKey": process.env.MIDTRANS_SERVER_KEY || null
-    },
     "port": process.env.APP_PORT || 3005,
     "photoPath": process.env.IMAGE_PATH || "src/resources/public/images",
-    "frontEndPageResetPassword": process.env.FRONT_END_PAGE_RESET_PASSWORD || null,
-    "frontEndPageVerifyEmail": process.env.FRONT_END_PAGE_VERIFY_EMAIL || null,
-    "frontEndPageRedirectAfterPayment": process.env.FRONT_END_REDIRECT_WEBHOOK || null,
 };
 
 module.exports = { configApp }

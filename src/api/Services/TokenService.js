@@ -52,14 +52,14 @@ const generateToken = (user, expired, type, secret, dataAddon) => {
     return jwt.sign(payload, secret);
 };
 
-exports.generateAuthenticationToken = async(user) => {
-    const accessTokenExpire = moment().add(configApp.jwt.accessTokenExpire, configApp.jwt.accessTokenExpireUnit).unix();
-    return generateToken(user, accessTokenExpire, "ACCESS", configApp.jwt.secret, user);
+exports.generateAuthenticationToken = async(user, application) => {
+    const accessTokenExpire = moment().add(application.accessExpiredDuration, application.expiredUnit).unix();
+    return generateToken(user, accessTokenExpire, "ACCESS", application.accessSecretToken, user);
 };
 
-exports.generateAuthenticationRefreshToken = async(user) => {
-    const refreshTokenExpire = moment().add(configApp.jwt.refreshTokenExpire, configApp.jwt.accessTokenExpireUnit).unix();
-    return generateToken(user, refreshTokenExpire, "REFRESH", configApp.jwt.secret, user);
+exports.generateAuthenticationRefreshToken = async(user, application) => {
+    const refreshTokenExpire = moment().add(application.refreshExpiredDuration, application.expiredUnit).unix();
+    return generateToken(user, refreshTokenExpire, "REFRESH", application.accessSecretToken, user);
 };
 
 exports.generateTokenForNrp = async(nrp, type) => {
@@ -69,9 +69,9 @@ exports.generateTokenForNrp = async(nrp, type) => {
     return generateToken(user, expired, type, configApp["jwt"]["secret"], { nrp });
 };
 
-exports.verifyToken = async(token) => {
+exports.verifyToken = async(token, application) => {
     try {
-        const payload = jwt.verify(token, configApp["jwt"]["secret"]);
+        const payload = jwt.verify(token, application);
         return payload;
     } catch (error) {
         throw new apiError(400, "Unauthorized", "token tidak valid");

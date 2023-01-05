@@ -21,9 +21,30 @@ module.exports = (sequelize, DataTypes) => {
                 field: "id",
             },
             name: DataTypes.STRING,
+            slug: DataTypes.STRING,
             key: {
                 type: DataTypes.STRING,
                 unique: true
+            },
+            accessSecretToken: {
+                type: DataTypes.STRING,
+                field: "access_secret_token"
+            },
+            accessExpiredDuration: {
+                type: DataTypes.STRING,
+                field: "access_expired_duration"
+            },
+            refreshSecretToken: {
+                type: DataTypes.STRING,
+                field: "refresh_secret_token"
+            },
+            refreshExpiredDuration: {
+                type: DataTypes.STRING,
+                field: "refresh_expired_duration"
+            },
+            expiredUnit: {
+                type: DataTypes.ENUM("hours", "days"),
+                field: "expired_unit"
             },
             deletedAt: {
                 type: "DATETIME",
